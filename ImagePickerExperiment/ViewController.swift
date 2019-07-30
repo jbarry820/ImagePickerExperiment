@@ -76,17 +76,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
         
-        
-        
         saveImage(source: UIImagePickerController.SourceType.photoLibrary)
     }
-    
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .camera
         present(imagePicker, animated: true, completion: nil)
+        
+        saveImage(source: UIImagePickerController.SourceType.camera)
     }
     
     @IBAction func shareMeme(_ sender: Any) {
@@ -97,21 +96,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         activityController.completionWithItemsHandler = {
             activity, success, items, error in
             if success {
-                self.save(memedImage: memedImage)
+                self.saveMeme(memedImage: <#UIImage#>)
                 self.dismiss(animated: true, completion: nil)
             }
         }
     }
     
-    func save(memedImage: UIImage) {
-        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, image: UIImageView.image!, memedImage: generateMemedImange())
-        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+    func saveMeme(memedImage: UIImage) {
+        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, image: imagePickerView.image!, memedImage: generateMemedImange())
     }
     
     @IBAction func cancel(_ sender: Any) {
         setupInitialView()
     }
-    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
