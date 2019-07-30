@@ -13,9 +13,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var topText: UITextField!
     @IBOutlet weak var bottomText: UITextField!
+    @IBOutlet weak var camera: UIBarButtonItem!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var navigationBar: UINavigationItem!
-    @IBOutlet weak var shareButton: UIBarButtonItem!
     
     let memeTextAttributes: [NSAttributedString.Key: Any] = [
         NSAttributedString.Key.strokeColor: UIColor.black,
@@ -74,6 +75,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
+        
+        
+        
+        saveImage(source: UIImagePickerController.SourceType.photoLibrary)
     }
     
     
@@ -90,12 +95,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         
         activityController.completionWithItemsHandler = {
-            activity, completed, items, error in
-            if completed {
+            activity, success, items, error in
+            if success {
                 self.save(memedImage: memedImage)
                 self.dismiss(animated: true, completion: nil)
             }
         }
+    }
+    
+    func save(memedImage: UIImage) {
+        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, image: UIImageView.image!, memedImage: generateMemedImange())
+        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        setupInitialView()
     }
     
     
@@ -141,8 +155,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func save(memedImage: UIImage) {
-        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, orignalImage: UIImageView.image!, memedImage: memedImage)
+    func saveImage(source: UIImagePickerController.SourceType) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = source
+        present(imagePicker, animated: true, completion: nil)
     }
     
     func generateMemedImange() -> UIImage {
