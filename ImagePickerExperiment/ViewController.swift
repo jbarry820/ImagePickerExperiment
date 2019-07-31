@@ -71,21 +71,34 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
+//        let imagePicker = UIImagePickerController()
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = .photoLibrary
+//        present(imagePicker, animated: true, completion: nil)
         
-        saveImage(source: UIImagePickerController.SourceType.photoLibrary)
+//        saveImage(source: UIImagePickerController.SourceType.photoLibrary)
+        saveMeme(memedImage: <#T##UIImage#>)
     }
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
+//        let imagePicker = UIImagePickerController()
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = .camera
+//        present(imagePicker, animated: true, completion: nil)
+        
+//        saveImage(source: UIImagePickerController.SourceType.camera)
+        saveMeme(memedImage: <#T##UIImage#>)
+    }
+    
+    func saveImage(source: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .camera
+        imagePicker.sourceType = source
         present(imagePicker, animated: true, completion: nil)
-        
-        saveImage(source: UIImagePickerController.SourceType.camera)
+    }
+    
+    func saveMeme(memedImage: UIImage) {
+        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, image: imagePickerView.image!, memedImage: generateMemedImange())
     }
     
     @IBAction func shareMeme(_ sender: Any) {
@@ -100,10 +113,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.dismiss(animated: true, completion: nil)
             }
         }
-    }
-    
-    func saveMeme(memedImage: UIImage) {
-        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, image: imagePickerView.image!, memedImage: generateMemedImange())
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -150,13 +159,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func unsubscribeFromKeyboardNotification() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    func saveImage(source: UIImagePickerController.SourceType) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = source
-        present(imagePicker, animated: true, completion: nil)
     }
     
     func generateMemedImange() -> UIImage {
