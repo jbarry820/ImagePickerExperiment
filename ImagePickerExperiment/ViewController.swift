@@ -71,24 +71,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
-//        let imagePicker = UIImagePickerController()
-//        imagePicker.delegate = self
-//        imagePicker.sourceType = .photoLibrary
-//        present(imagePicker, animated: true, completion: nil)
-        
-//        saveImage(source: UIImagePickerController.SourceType.photoLibrary)
-//        saveMeme(memedImage: generateMemedImange())
         openImagePicker(source: .photoLibrary)
     }
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
-//        let imagePicker = UIImagePickerController()
-//        imagePicker.delegate = self
-//        imagePicker.sourceType = .camera
-//        present(imagePicker, animated: true, completion: nil)
-        
-//        saveImage(source: UIImagePickerController.SourceType.camera)
-        saveMeme(memedImage: generateMemedImange())
         openImagePicker(source: .camera)
     }
     
@@ -99,8 +85,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         present(imagePicker, animated: true, completion: nil)
     }
     
-    func saveMeme(memedImage: UIImage) {
-        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, image: imagePickerView.image!, memedImage: memedImage)
+    func save() {
+        _ = Meme(topText: topText.text!, bottomText: bottomText.text!, image: imagePickerView.image!, memedImage: generateMemedImange())
     }
     
     @IBAction func shareMeme(_ sender: Any) {
@@ -111,7 +97,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         activityController.completionWithItemsHandler = {
             activity, success, items, error in
             if success {
-                self.saveMeme(memedImage: self.generateMemedImange())
+                self.save()
                 self.dismiss(animated: true, completion: nil)
             }
         }
