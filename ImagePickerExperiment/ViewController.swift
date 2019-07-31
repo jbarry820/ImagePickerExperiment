@@ -77,7 +77,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //        present(imagePicker, animated: true, completion: nil)
         
 //        saveImage(source: UIImagePickerController.SourceType.photoLibrary)
-        saveMeme(memedImage: <#T##UIImage#>)
+//        saveMeme(memedImage: generateMemedImange())
+        openImagePicker(source: .photoLibrary)
     }
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
@@ -87,10 +88,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //        present(imagePicker, animated: true, completion: nil)
         
 //        saveImage(source: UIImagePickerController.SourceType.camera)
-        saveMeme(memedImage: <#T##UIImage#>)
+        saveMeme(memedImage: generateMemedImange())
+        openImagePicker(source: .camera)
     }
     
-    func saveImage(source: UIImagePickerController.SourceType) {
+    func openImagePicker(source: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = source
@@ -98,7 +100,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func saveMeme(memedImage: UIImage) {
-        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, image: imagePickerView.image!, memedImage: generateMemedImange())
+        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, image: imagePickerView.image!, memedImage: memedImage)
     }
     
     @IBAction func shareMeme(_ sender: Any) {
@@ -109,7 +111,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         activityController.completionWithItemsHandler = {
             activity, success, items, error in
             if success {
-                self.saveMeme(memedImage: <#UIImage#>)
+                self.saveMeme(memedImage: self.generateMemedImange())
                 self.dismiss(animated: true, completion: nil)
             }
         }
