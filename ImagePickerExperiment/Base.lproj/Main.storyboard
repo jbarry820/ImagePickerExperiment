@@ -96,8 +96,8 @@
                     <connections>
                         <outlet property="bottomText" destination="u5U-TG-Mch" id="EIM-xN-NtL"/>
                         <outlet property="camera" destination="Q3z-CU-41G" id="2eW-EV-kkp"/>
-                        <outlet property="imagePickerView" destination="Lpc-OB-rV4" id="Ykb-s5-Tir"/>
                         <outlet property="navigationBar" destination="M8g-LW-2VT" id="i49-W4-MnI"/>
+                        <outlet property="selectedImageView" destination="Lpc-OB-rV4" id="Ykb-s5-Tir"/>
                         <outlet property="shareButton" destination="YRC-9c-8l7" id="t9a-fa-R09"/>
                         <outlet property="toolBar" destination="b0v-Xc-5XQ" id="q76-uS-s3d"/>
                         <outlet property="topText" destination="r5Y-VX-6rq" id="8UY-7M-zpY"/>
