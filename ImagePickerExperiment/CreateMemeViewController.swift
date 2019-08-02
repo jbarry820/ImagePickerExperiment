@@ -35,6 +35,7 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
+        camera.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,8 +86,8 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
         present(imagePicker, animated: true, completion: nil)
     }
     
-    func save() {
-        _ = Meme(topText: topText.text!, bottomText: bottomText.text!, image: selectedImageView.image!, memedImage: generateMemedImange())
+    func save(_ generatedMeme: Meme) {
+        _ = Meme(topText: topText.text!, bottomText: bottomText.text!, image: selectedImageView.image!, memedImage: generatedMeme)
     }
     
     @IBAction func shareMeme(_ sender: Any) {
@@ -97,7 +98,7 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
         activityController.completionWithItemsHandler = {
             activity, success, items, error in
             if success {
-                self.save()
+                self.save(memedImage)
                 self.dismiss(animated: true, completion: nil)
             }
         }
