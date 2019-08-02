@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Image Picker will only save photos you choose</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Image Picker will only upload and share photos you choose</string>
 	<key>NSPhotoLibraryUsageDescription</key>
