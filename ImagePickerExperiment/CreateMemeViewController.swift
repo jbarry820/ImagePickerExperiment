@@ -30,12 +30,12 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
         super.viewDidLoad()
         //view.backgroundColor = UIColor.gray
         setupInitialView()
+        camera.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
-        camera.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,7 +86,7 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
         present(imagePicker, animated: true, completion: nil)
     }
     
-    func save(_ generatedMeme: Meme) {
+    func save(_ generatedMeme: UIImage) {
         _ = Meme(topText: topText.text!, bottomText: bottomText.text!, image: selectedImageView.image!, memedImage: generatedMeme)
     }
     
